@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::controller(CatsController::class)->group(function(){
+    Route::get('cats', 'getcats');
+    Route::post('cats', 'create');
+    Route::get('cats/{id}', 'getcat');
+    Route::delete('cats/{id}', 'destroy');
+    Route::get('cats', 'update');
 });
