@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('toys', function (Blueprint $table) {
-            $table->id();
-            $table->string('color');
-            $table->unsignedBigInteger('cat_id')->nulable;
-            $table->index('cat_id');
-            $table->foreign('cat_id')->on('cats')->references('id');
-            $table->timestamps();
+        Schema::table('cats', function (Blueprint $table) {
+            $table->string('color')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('toys');
+        Schema::table('cats', function (Blueprint $table) {
+            $table->dropColumn(['color']);
+        });
     }
 };

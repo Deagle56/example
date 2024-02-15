@@ -4,20 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Cat;
 
-class People extends Model
+class Dish extends Model
 {
     use HasFactory;
-
+    
     protected  $fillable=[
-        'name',
-        'age',
-        'number'
+        'color',
+        'cat_id'
     ];
-
-    public function cats()
+    
+    public function cat() 
     {
-        return $this->belongsToMany(Cat::class);
+        return $this->hasOne(Cat::class);
     }
 }
