@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\cat;
+namespace App\Http\Requests\Cat;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,7 @@ class getCat extends FormRequest
     public function rules(): array
     {
         return [
-            'limit' =>  'unique:5|integer|min:1|max:15',
+            'limit' =>  'integer|min:1|max:15',
         ];
     }
 }

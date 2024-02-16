@@ -9,19 +9,18 @@ use App\Http\Requests\Cat\createCat;
 use App\Http\Requests\Cat\updateCat;
 use App\Http\Requests\Cat\getCat;
 
-$cats = Cat::paginate(5);
-
 class CatsController extends Controller
 {
     
-
-
     public function getCats(getCat $request) {
         $limit = $request->limit;
         $page = $request->page;
-        // $dishes=Dish::with('cat')->orderBy('created_at')->cursorPaginate($perPage= $limit, $columns = ['*'], $pageName = $page);
-        $cats = Cat:: query()->with('dishes', 'toys')->orderBy('created_at')->cursorPaginate($perPage= $limit, $columns = ['*'], $pageName = $page);
+        if(!isset($limit)) {
+            $limit = 2;
+        }
+        $cats = Cat:: with('dishes', 'toys')->orderBy('created_at')->cursorPaginate($perPage= $limit, $columns = ['*'], $pageName = $page);
         return response()->json(['status' => 'succes', 'cats' => $cats], 200 );
+        
     }
 
     public function create(createCat $request) {

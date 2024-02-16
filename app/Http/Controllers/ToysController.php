@@ -7,15 +7,21 @@ use App\Models\Toy;
 use App\Http\Requests\Toy\createToy;
 use App\Http\Requests\Toy\updateToy;
 use App\Http\Requests\Toy\getToy;
-use Illuminate\Cache\RateLimiting\Limit;
+// use Illuminate\Cache\RateLimiting\Limit;
 
 class toyscontroller extends Controller
 {
     public function getToys(getToy $request) {
+        
         $limit = $request->limit;
         $page = $request->page;
+       if(!isset($limit)) {
+         	$limit = 1;
+        }
+
+        print($limit);
         $toys=Toy::with('cat')->orderBy('created_at')->cursorPaginate($perPage = $limit, $columns = ['*'], $pageName = $page);
-        return response()->json(['status' => 'succes', 'toys' => $toys, $limit = 1], 200 );
+        return response()->json(['status' => 'succes', 'toys' => $toys,], 200 );
     }
 
     public function create(createToy $request) {

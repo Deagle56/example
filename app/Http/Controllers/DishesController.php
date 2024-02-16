@@ -13,6 +13,9 @@ class DishesController extends Controller
     public function getDishes(getDish $request) {
         $limit = $request->limit;
         $page = $request->page;
+        if(!isset($limit)) {
+            $limit = 2;
+        }
         $dishes=Dish::with('cat')->orderBy('created_at')->cursorPaginate($perPage= $limit, $columns = ['*'], $pageName = $page);
         // $peoples=People::with('cats')->orderBy('created_at')->Paginate($perPage= $limit, $columns = ['*'], $pageName = $page);
         return response()->json(['status' => 'succes', 'dishes' => $dishes], 200 );

@@ -22,7 +22,7 @@ class getDish extends FormRequest
     public function rules(): array
     {
         return [
-            'limit' => 'required|integer|min:1|max:15',
+            'limit' => 'integer|min:1|max:15',
         ];
     }
 }

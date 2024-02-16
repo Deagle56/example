@@ -13,6 +13,9 @@ class PeoplesController extends Controller
     public function getPeoples(getPeople $request) {
         $limit = $request->limit;
         $page = $request->page;
+        if(!isset($limit)) {
+            $limit = 1;
+        }
         $peoples=People::with('cats')->orderBy('created_at')->Paginate($perPage= $limit, $columns = ['*'], $pageName = $page);
         
         // $toys=Toy::with('cat')->orderBy('created_at')->cursorPaginate($perPage = $limit, $columns = ['*'], $pageName = $page);
